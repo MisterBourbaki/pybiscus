@@ -6,6 +6,14 @@
 * Refacto of container part.
 * Improve and change the documentation.
 
+## [Version 0.8.0]
+
+* Refacto:
+  * change 'conf_model' into 'model' variable, of type 'LightningModule' to enhance the modularity of the code. The jsonargparse CLI takes care directly of dependency injections.
+  * change 'conf_data' into 'data' variable, of type 'LightningDataModule' to enhance the modularity of the code.
+  * change 'conf_fabric' into 'fabric' variable, of type 'Fabric' to enhance the modularity of the code. The 'logger' variable is removed. It is now directly defined in the YAML file, using dependency injection.
+* Add a MNIST LightningDataModule, mostly for testing purposes.
+
 ## [Version 0.7.0.dev1]
 
 * Refacto: implement a class Server that holds both all model/data/strategy/fabric instance necessary for the training, and the 'launch' method. Helps a lot with the jsonargparse CLI.
