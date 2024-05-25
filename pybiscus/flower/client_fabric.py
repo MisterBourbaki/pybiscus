@@ -11,6 +11,7 @@ from pybiscus.console import console
 from pybiscus.ml.data.cifar10.cifar10_datamodule import ConfigData_Cifar10
 from pybiscus.ml.loops_fabric import test_loop, train_loop
 from pybiscus.ml.models.cnn.lit_cnn import ConfigModel_Cifar10
+from pybiscus.ml.registry import datamodule_registry, model_registry
 
 torch.backends.cudnn.enabled = True
 
@@ -184,3 +185,65 @@ class FlowerClient(fl.client.NumPyClient):
         for key, val in results_evaluate.items():
             metrics[key] = val
         return results_evaluate["loss"], self.num_examples["valset"], metrics
+
+
+class Client:
+    """Launch a FlowerClient.
+
+    This is a Typer command to launch a Flower Client, using the configuration given by config.
+
+    Parameters
+    ----------
+    config: Path
+        path to a config file
+    cid: int, optional
+        the client id
+    root_dir: str, optional
+        the path to a "root" directory, relatively to which can be found Data, Experiments and other useful directories
+    server_adress: str, optional
+        the server adress and port
+
+    Raises
+    ------
+    ValidationError
+        the Pydantic error raised if the config is not validated.
+    """
+
+    def __init__(
+        self,
+        cid: int,
+        conf_data: ConfigData_Cifar10,
+        conf_model: ConfigModel_Cifar10,
+        conf_fabric: ConfigFabric,
+        pre_train_val: bool,
+    ) -> None:
+        name_data = conf_data.name
+        conf_data = dict(conf_data.config)
+        name_model = conf_model.name
+        conf_model = dict(conf_model.config)
+        conf_fabric = dict(conf_fabric)
+
+        data = datamodule_registry[name_data](**conf_data)
+        data.setup(stage="fit")
+        num_examples = {
+            "trainset": len(data.train_dataloader()),
+            "valset": len(data.val_dataloader()),
+        }
+
+        model = model_registry[name_model](**conf_model)
+        self.client = FlowerClient(
+            cid=cid,
+            model=model,
+            data=data,
+            num_examples=num_examples,
+            conf_fabric=conf_fabric,
+            pre_train_val=pre_train_val,
+        )
+
+    def start(self, server_adress: str):
+        self.client.initialize()
+        client = self.client.to_client()
+        fl.client.start_client(
+            server_address=server_adress,
+            client=client,
+        )
