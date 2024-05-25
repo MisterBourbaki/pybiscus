@@ -1,47 +1,13 @@
 from pathlib import Path
-from typing import Literal, Optional
+from typing import Optional
 
 import lightning.pytorch as pl
 import torchvision.transforms as transforms
-from pydantic import BaseModel, ConfigDict
 from torch.utils.data import DataLoader
-from torchvision.datasets import CIFAR10
+from torchvision.datasets import MNIST
 
 
-class ConfigCifar10Data(BaseModel):
-    """A Pydantic Model to validate the CifarLitDataModule config givent by the user.
-
-    Attributes
-    ----------
-    dir_train: str
-        path to the directory holding the training data
-    dir_val: str
-        path to the directory holding the validating data
-    dir_test: str, optional
-        path to the directory holding the testing data
-    batch_size: int, optional
-        the batch size (default to 32)
-    num_workers: int, optional
-        the number of workers for the DataLoaders (default to 0)
-    """
-
-    dir_train: str
-    dir_val: str
-    dir_test: str = None
-    batch_size: int = 32
-    num_workers: int = 0
-
-    model_config = ConfigDict(extra="forbid")
-
-
-class ConfigData_Cifar10(BaseModel):
-    name: Literal["cifar"]
-    config: ConfigCifar10Data
-
-    model_config = ConfigDict(extra="forbid")
-
-
-class CifarLitDataModule(pl.LightningDataModule):
+class MNISTLitDataModule(pl.LightningDataModule):
     def __init__(
         self,
         # root_dir,
@@ -60,19 +26,19 @@ class CifarLitDataModule(pl.LightningDataModule):
         self.transform = transforms.Compose(
             [
                 transforms.ToTensor(),
-                transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
+                transforms.Normalize((0.5,), (0.5,)),
             ]
         )
 
     def setup(self, stage: Optional[str] = None):
         if stage == "fit" or stage is None:
-            self.data_train = CIFAR10(
+            self.data_train = MNIST(
                 root=self.data_dir_train,
                 train=True,
                 download=True,
                 transform=self.transform,
             )
-            self.data_val = CIFAR10(
+            self.data_val = MNIST(
                 root=self.data_dir_val,
                 train=False,
                 download=True,
@@ -80,7 +46,7 @@ class CifarLitDataModule(pl.LightningDataModule):
             )
 
         if stage == "test" or stage is None:
-            self.data_test = CIFAR10(
+            self.data_test = MNIST(
                 root=self.data_dir_test,
                 train=False,
                 download=True,
