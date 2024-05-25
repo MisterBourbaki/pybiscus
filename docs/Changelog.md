@@ -2,12 +2,16 @@
 
 ## TODO
 
-* Remove tests, or find a way to test the jsonargparse CLI.
-* Adapt github workflow to Rye ; remove/change the test workflow ; remove the publish part.
-* Improve the CLI: how to transform a simple function (launch_client for instance) into a CLI, without duplication of code?
 * Think about the necessity of Pydantic validation.
 * Refacto of container part.
 * Improve and change the documentation.
+
+## [Version 0.7.0.dev1]
+
+* Refacto: implement a class Server that holds both all model/data/strategy/fabric instance necessary for the training, and the 'launch' method. Helps a lot with the jsonargparse CLI.
+* Add a new server config file that follows the new CLI for the server part.
+* Remove tests (for now).
+* Adapt github workflow to Rye ; remove/ the test workflow ; remove the publish part.
 
 ## [Version 0.7.0.dev0]
 
