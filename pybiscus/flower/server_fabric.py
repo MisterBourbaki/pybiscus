@@ -4,7 +4,7 @@ from typing import Optional
 import flwr as fl
 import torch
 from lightning.fabric import Fabric
-from lightning.fabric.loggers import TensorBoardLogger
+from lightning.pytorch import LightningDataModule, LightningModule
 from omegaconf import OmegaConf
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -20,7 +20,6 @@ from pybiscus.flower.client_fabric import ConfigFabric
 from pybiscus.flower.strategies import ConfigFabricStrategy
 from pybiscus.ml.data.cifar10.cifar10_datamodule import ConfigData_Cifar10
 from pybiscus.ml.models.cnn.lit_cnn import ConfigModel_Cifar10
-from pybiscus.ml.registry import datamodule_registry, model_registry
 
 
 class ConfigStrategy(BaseModel):
@@ -82,12 +81,10 @@ class Server:
     def __init__(
         self,
         root_dir: Path,
-        # conf_logger: dict,
-        logger: TensorBoardLogger,
         conf_strategy: ConfigStrategy,
-        conf_fabric: ConfigFabric,
-        conf_model: ConfigModel_Cifar10,
-        conf_data: ConfigData_Cifar10,
+        fabric: Fabric,
+        model: LightningModule,
+        data: LightningDataModule,
         weights_path: Optional[Path],
     ):
         """Launch a Flower Server.
@@ -112,24 +109,11 @@ class Server:
             the Pydantic error raised if the config is not validated.
 
         """
-        conf_fabric = dict(conf_fabric)
-        name_data = conf_data.name
-        conf_data = dict(conf_data.config)
-        name_model = conf_model.name
-        conf_model = dict(conf_model.config)
-        # name_strategy = conf_strategy.name
         conf_strategy = dict(conf_strategy.config)
-        # conf_logger = dict(conf_logger)
 
-        # self.logger = TensorBoardLogger(root_dir=root_dir + conf_logger["subdir"])
-        self.logger = logger
-
-        self.fabric = Fabric(**conf_fabric, loggers=self.logger)
+        self.fabric = fabric
         self.fabric.launch()
-        model_class = model_registry[name_model]
-        model = model_class(**conf_model)
         self.model = self.fabric.setup_module(model)
-        data = datamodule_registry[name_data](**conf_data)
         data.setup(stage="test")
         _test_set = data.test_dataloader()
         self.test_set = self.fabric._setup_dataloader(_test_set)

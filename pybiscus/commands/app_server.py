@@ -18,9 +18,9 @@ def server_cli():
     cfg = parser.parse_args()
     console.log(cfg.as_dict())
     cfg = parser.instantiate_classes(cfg)
-    console.log(cfg)
+    # console.log(cfg)
     server = cfg.server.init
-    console.log(server)
+    # console.log(server)
     server.launch(**cfg.server.launch.as_dict())
 
 
