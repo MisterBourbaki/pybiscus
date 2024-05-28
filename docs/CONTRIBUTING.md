@@ -10,6 +10,12 @@ File issues using the standard Github issue tracker for the repo.
 * Install pre-commit.
 * Install the dev dependencies.
 
+The code relies on Ruff for formatting and linting, please have a look at the ruff.toml file.
+
+There are no tests for now, as it is quite difficult to build suitable test suite for CLI. Unit tests should be added in the future.
+
+The repo on GitHub uses GitHub Actions to automate linting/formatting and publishing.
+
 ### Contributing A Patch
 
 * Submit an issue describing your proposed change to the repo in question.
