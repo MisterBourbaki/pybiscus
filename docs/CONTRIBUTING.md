@@ -6,6 +6,10 @@ File issues using the standard Github issue tracker for the repo.
 
 ## How to become a contributor and submit your own code
 
+* Fork the repo and create a dedicated branch.
+* Install pre-commit.
+* Install the dev dependencies.
+
 ### Contributing A Patch
 
 * Submit an issue describing your proposed change to the repo in question.
