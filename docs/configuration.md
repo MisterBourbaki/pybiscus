@@ -18,6 +18,7 @@ fabric:
 ```
 
 The keyword `devices` is waiting for either a list of integers (the id of the devices themselves) or an integer (for the number of devices wanted). To use CPU for instance, you can simply write
+
 ```yaml
 ...
 fabric:
@@ -30,15 +31,28 @@ The keyword `devices` is left intentionnaly commented, as Fabric will automatica
 
 ## Models
 
-Please look at
-::: src.flower.server_fabric.evaluate_config
-    options:
-      heading_level: 3
+Thanks to jsonargparse and its ability to handle dependency injection, any LightningModule can be used with Pybiscus. It just needs to be either install via a Python library, in the same virtual environment as Pybiscus, or accessible via the path.
 
-and
+In the `server.yml` configuration file available (and in the client files too), the model is defined by
 
-::: src.flower.server_fabric.launch_config
+```yaml
+...
+model:
+  class_path: pybiscus.ml.models.cnn.lit_cnn.LitCNN
+  init_args:
+    input_shape: 3
+    mid_shape: 6
+    n_classes: 10
+    lr: 0.001
+...
+```
+
+which means that the CLI will use the LightningModule at the path `pybiscus.ml.models.cnn.lit_cnn.LitCNN`, and use the arguments passed after the `init_args` keyword.
+
+To use a different model, available in the Python path, change the `class_path` to point to your model, and change the `init_args` accordingly.
 
 ## Data
+
+(see Models)
 
 ## Others
