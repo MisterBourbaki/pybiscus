@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.14">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.23">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.fad675c6.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.6543a935.min.css">
       
       
 
@@ -55,9 +55,6 @@
   
     <body dir="ltr">
   
-    
-    
-      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -107,6 +104,9 @@
         </div>
       </div>
     </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
     
     
@@ -231,7 +231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how-to/" class="md-nav__link">
+      <a href="../how-to.md" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -337,9 +337,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#unreleased" class="md-nav__link">
+  <a href="#todo" class="md-nav__link">
     <span class="md-ellipsis">
-      [Unreleased]
+      TODO
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-080" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Version 0.8.0]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-070dev1" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Version 0.7.0.dev1]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-070dev0" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Version 0.7.0.dev0]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-061" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Version 0.6.1]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-060dev0" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Version 0.6.0.dev0]
     </span>
   </a>
   
@@ -427,9 +472,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#unreleased" class="md-nav__link">
+  <a href="#todo" class="md-nav__link">
     <span class="md-ellipsis">
-      [Unreleased]
+      TODO
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-080" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Version 0.8.0]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-070dev1" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Version 0.7.0.dev1]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-070dev0" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Version 0.7.0.dev0]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-061" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Version 0.6.1]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-060dev0" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Version 0.6.0.dev0]
     </span>
   </a>
   
@@ -478,8 +568,43 @@
 
 
 <h1 id="changelog">Changelog</h1>
-<h2 id="unreleased">[Unreleased]</h2>
+<h2 id="todo">TODO</h2>
 <ul>
+<li>Think about the necessity of Pydantic validation.</li>
+<li>Refacto of container part.</li>
+<li>Improve and change the documentation.</li>
+</ul>
+<h2 id="version-080">[Version 0.8.0]</h2>
+<ul>
+<li>Refacto:</li>
+<li>change 'conf_model' into 'model' variable, of type 'LightningModule' to enhance the modularity of the code. The jsonargparse CLI takes care directly of dependency injections.</li>
+<li>change 'conf_data' into 'data' variable, of type 'LightningDataModule' to enhance the modularity of the code.</li>
+<li>change 'conf_fabric' into 'fabric' variable, of type 'Fabric' to enhance the modularity of the code. The 'logger' variable is removed. It is now directly defined in the YAML file, using dependency injection.</li>
+<li>Add a MNIST LightningDataModule, mostly for testing purposes.</li>
+</ul>
+<h2 id="version-070dev1">[Version 0.7.0.dev1]</h2>
+<ul>
+<li>Refacto: implement a class Server that holds both all model/data/strategy/fabric instance necessary for the training, and the 'launch' method. Helps a lot with the jsonargparse CLI.</li>
+<li>Add a new server config file that follows the new CLI for the server part.</li>
+<li>Remove tests (for now).</li>
+<li>Adapt github workflow to Rye ; remove/ the test workflow ; remove the publish part.</li>
+</ul>
+<h2 id="version-070dev0">[Version 0.7.0.dev0]</h2>
+<ul>
+<li><strong>Bump Typer CLI to jsonargparse</strong>. Typer CLI was great to build Pybiscus as a PoC, but it has some limitations: really slow, it does not support configuration files through the arguments of the CLI, you need to rewrite the Pydantic models into the arguments of the CLI... One issue in particular was the difficulty of writing nested configuration directly in the CLI, which is important if you want to easily override parameters in the config file.</li>
+<li>Remove: helper functions to check the config. Not needed with jsonargparse</li>
+<li>Add: a toplevel layer 'config_server' or 'config_client' at the top of the configuration files.</li>
+</ul>
+<h2 id="version-061">[Version 0.6.1]</h2>
+<ul>
+<li>Fix: Pydantic version, unfortunately pinned to non existing version 2.6.</li>
+<li>Improve: documentation, still a work in progress.</li>
+</ul>
+<h2 id="version-060dev0">[Version 0.6.0.dev0]</h2>
+<ul>
+<li><strong>BREAKING CHANGE</strong> Renaming 'src' directory into 'pybiscus' to follow the structure expected by Poetry to properly build the package. First step towards packaging the tool.</li>
+<li><strong>REFACTO</strong> The "FabricStrategy" approach is now deprecated. Instead, a few callbacks, based on Fabric and Rich, allows to easily "upgrade" the usual weighted average and evaluation functions, for generic Strategies. Note that for now, only the classical FedAvg Strategy provided by Flower has been tested.</li>
+<li>Starting a small test suite. For now, only test the 'check' parts of client and server applications, on different config files to test good/bad returns.</li>
 <li>Correcting a bug on the weighted_average function: "is set()" had to be replaced by "==set()". Metrics are now aggregated and averaged.</li>
 <li>Introducing a short helper function to merge the configuration from the config file passed as an argument of server or client, and the optional arguments, if passed.</li>
 </ul>
@@ -527,11 +652,19 @@
 
 
 
+
+
+
+
+
+
+
                 
               </article>
             </div>
           
           
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
       </main>
@@ -560,10 +693,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.cd18aaf1.min.js"></script>
+      <script src="../assets/javascripts/bundle.ebd0bdb7.min.js"></script>
       
     
   </body>

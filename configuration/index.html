@@ -9,14 +9,14 @@
       
       
       
-        <link rel="prev" href="../how-to/">
+        <link rel="prev" href="../getting_started/">
       
       
         <link rel="next" href="../CONTRIBUTING/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.14">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.23">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.fad675c6.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.6543a935.min.css">
       
       
 
@@ -55,9 +55,6 @@
   
     <body dir="ltr">
   
-    
-    
-      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -107,6 +104,9 @@
         </div>
       </div>
     </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
     
     
@@ -231,7 +231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how-to/" class="md-nav__link">
+      <a href="../how-to.md" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -498,14 +498,30 @@ fabric:
 </code></pre>
 <p>The keyword <code>devices</code> is left intentionnaly commented, as Fabric will automatically find a suitable device corresponding to the choice cpu.</p>
 <h2 id="models">Models</h2>
-<p>Please look at
-::: src.flower.server_fabric.evaluate_config
-    options:
-      heading_level: 3</p>
-<p>and</p>
-<p>::: src.flower.server_fabric.launch_config</p>
+<p>Thanks to jsonargparse and its ability to handle dependency injection, any LightningModule can be used with Pybiscus. It just needs to be either install via a Python library, in the same virtual environment as Pybiscus, or accessible via the path.</p>
+<p>In the <code>server.yml</code> configuration file available (and in the client files too), the model is defined by</p>
+<pre><code class="language-yaml">...
+model:
+  class_path: pybiscus.ml.models.cnn.lit_cnn.LitCNN
+  init_args:
+    input_shape: 3
+    mid_shape: 6
+    n_classes: 10
+    lr: 0.001
+...
+</code></pre>
+<p>which means that the CLI will use the LightningModule at the path <code>pybiscus.ml.models.cnn.lit_cnn.LitCNN</code>, and use the arguments passed after the <code>init_args</code> keyword.</p>
+<p>To use a different model, available in the Python path, change the <code>class_path</code> to point to your model, and change the <code>init_args</code> accordingly.</p>
 <h2 id="data">Data</h2>
+<p>(see Models)</p>
 <h2 id="others">Others</h2>
+
+
+
+
+
+
+
 
 
 
@@ -516,6 +532,7 @@ fabric:
             </div>
           
           
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
       </main>
@@ -544,10 +561,10 @@ fabric:
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.cd18aaf1.min.js"></script>
+      <script src="../assets/javascripts/bundle.ebd0bdb7.min.js"></script>
       
     
   </body>
