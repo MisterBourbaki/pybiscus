@@ -4,8 +4,8 @@ client:
     conf_data:
       name: cifar
       config:
-        dir_train: ${oc.env:PWD}/datasets/client1/train/
-        dir_val: ${oc.env:PWD}/datasets/client1/val/
+        dir_train: ${oc.env:PWD}/datasets/client3/train/
+        dir_val: ${oc.env:PWD}/datasets/client3/val/
         dir_test: None
         batch_size: 32
     conf_model:
