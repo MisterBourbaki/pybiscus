@@ -8,20 +8,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.x"
-    - name: Setup Rye
-      uses: eifinger/setup-rye@v2
-      id: setup-rye
-    - name: Use UV instead of pip
-      run: rye config --set-bool behavior.use-uv=true
-    - name: Build a binary wheel and a source tarball with rye
-      run: rye build
-    - name: Store the distribution packages
-      uses: actions/upload-artifact@v3
-      with:
-        name: python-package-distributions
-        path: dist/
+      - uses: actions/checkout@v4
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v1
+        with:
+          version: 0.4.5
+          enable-cache: true
+      - name: Build with uv
+        run: uv build
+      - name: Store the distribution packages
+        uses: actions/upload-artifact@v3
+        with:
+          name: python-package-distributions
+          path: dist/

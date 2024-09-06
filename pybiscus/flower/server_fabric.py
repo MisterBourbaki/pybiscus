@@ -78,6 +78,8 @@ class ConfigServer(BaseModel):
 
 
 class Server:
+    """The base Server of Pybiscus."""
+
     def __init__(
         self,
         root_dir: Path,
@@ -87,7 +89,7 @@ class Server:
         data: LightningDataModule,
         weights_path: Optional[Path],
     ):
-        """Launch a Flower Server.
+        """Initialize a Flower Server.
 
         This is a Typer command to launch a Flower Server, using the configuration given by config.
         Apart from the config parameter, other parameters are optional and, if given, override the associated parameter given by the parameter config.
@@ -163,6 +165,20 @@ class Server:
         client_configs: list[str],
         save_on_train_end: bool,
     ):
+        """Launch the server.
+
+        Parameters
+        ----------
+        server_adress : str
+            the IP adress on which to run the server.
+        num_rounds : int
+            number of rounds of Federated Learning.
+        client_configs : list[str]
+            A list of Paths to the configuration files of the client.
+                Only useful on pseudo-local training, as all files need to be on the same machine
+        save_on_train_end : bool
+            Whether to save the weights of the model (on the server side)  at the end of the training.
+        """
         fl.server.start_server(
             server_address=server_adress,
             config=fl.server.ServerConfig(num_rounds=num_rounds),
@@ -181,7 +197,7 @@ class Server:
                 _conf = OmegaConf.load(client_conf)
                 with open(
                     self.fabric.logger.log_dir
-                    + f"/config_client_{_conf['config_client']['cid']}_launch.yml",
+                    + f"/config_client_{_conf['client']['init']['cid']}_launch.yml",
                     "w",
                 ) as file:
                     OmegaConf.save(config=_conf, f=file)

@@ -6,6 +6,10 @@
 * Refacto of container part.
 * Improve and change the documentation.
 
+## [Unreleased]
+
+* Switching from Rye to uv for the workflow.
+
 ## [Version 0.8.0]
 
 * Refacto:
